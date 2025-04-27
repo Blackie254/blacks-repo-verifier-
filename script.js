@@ -23,14 +23,42 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
         toggleMenu();
     });
-    
+
     // Close menu when clicking anywhere on the page
     body.addEventListener('click', function() {
         if (menu.classList.contains('active')) {
             closeMenu();
         }
     });
-    
+    // script.js
+
+    function callApi() {
+      fetch('/api/hello')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          alert(data.message);
+        })
+        .catch(error => console.error('Error fetching API:', error));
+    }
+
+
+    function sendData() {
+        fetch('/api/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: 'Blackie254', action: 'test' })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            alert(data.message);
+          })
+          .catch(error => console.error('Error sending POST request:', error));
+    }
+
     // Prevent menu from closing when clicking inside it
     menu.addEventListener('click', function(e) {
         e.stopPropagation();
